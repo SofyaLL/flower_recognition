@@ -1,7 +1,6 @@
 import os
 import pickle
 
-import cv2
 import faiss
 import numpy as np
 import torch
@@ -43,5 +42,5 @@ class Searcher:
     def predict(self, image: np.ndarray) -> str:
         indices, scores = self.search_image(image)
         image_names = [self.image_paths[i] for i in indices[0]]
-        result = {image_name: score for image_name, score in zip(image_names, scores[0].tolist())}
+        result = {str(image_name): round(score, 3) for image_name, score in zip(image_names, scores[0].tolist())}
         return result
